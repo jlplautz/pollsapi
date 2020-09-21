@@ -103,3 +103,25 @@ Project based on book Building Apis with Django and Django Rest Framework
         path('', include('polls.urls'))
     ]
    ```
+# 3- A simple API with pure Django
+
+## 3.1- The endpoints and the URLS
+   - Our API will have two endpoints returning data in JSON format.
+      - /polls/ GETs list of Poll
+      - /polls/<id>/ GETs data of a specific Poll
+      
+## 3.2- Connecting urls to the views 
+   - Write two place holder view functions and connect them in your urls.py. 
+     We will finish polls_list and polls_detail shortly.
+     
+## 3.3- Created SuperUser
+   - (pollsapi) pollsapi $ python manage.py createsuperuser
+     Username (leave blank to use 'plautz'): 
+     Email address: jorge.plautz@gmail.com
+     Password: 
+     Password (again): 
+     This password is too short. It must contain at least 8 characters.
+     This password is too common.
+     Bypass password validation and create user anyway? [y/N]: y
+     Superuser created successfully.
+
