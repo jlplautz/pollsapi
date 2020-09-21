@@ -41,6 +41,7 @@ Project based on book Building Apis with Django and Django Rest Framework
    - (pollsapi) pollsapi $ python manage.py migrate
    
 ## 2.3- Create models
+
    - (pollsapi) pollsapi $ python manage.py startapp polls
    ```
    (pollsapi) pollsapi $ pwd
@@ -73,6 +74,7 @@ Project based on book Building Apis with Django and Django Rest Framework
    ```
 
 ## 2.4- Active models
+
    - To create the database tables to our models,‘rest_framework’ and ‘polls’ app needs to be added 
      to the “INSTALLED_APPS” in the ‘django_pollsapi/settings’ file.
    ```
