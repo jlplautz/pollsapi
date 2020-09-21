@@ -125,3 +125,40 @@ Project based on book Building Apis with Django and Django Rest Framework
      Bypass password validation and create user anyway? [y/N]: y
      Superuser created successfully.
 
+# 4- Serializing and Deserializing Data
+
+## 4.2- Creating Serializers
+   - Create a file polls/serializers.py
+   ```
+    from rest_framework import serializers
+    from .models import Poll, Choice, Vote
+    class VoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vote
+        fields = '__all__'
+    class ChoiceSerializer(serializers.ModelSerializer):
+        votes = VoteSerializer(many=True, required=False)
+        class Meta:
+            model = Choice
+            fields = '__all__'
+    class PollSerializer(serializers.ModelSerializer):
+        choices = ChoiceSerializer(many=True, read_only=True, required=False)
+        class Meta:
+            model = Poll
+            fields = '__all__'
+   ```
+   
+## 4.4-  Using PollSerializer
+>>> from polls.serializers import PollSerializer
+>>> from polls.models import Poll
+>>> poll_serializer = PollSerializer(data={"question": "Vinho ou Caipirinha", "created_by": 1})
+>>> poll_serializer.is_valid()
+True
+>>>> poll = poll_serializer.save()
+>>> poll.pk
+2
+>>> Poll.objects.all()
+<QuerySet [<Poll: What's up?>, <Poll: Vinho ou Caipirinha>]>
+>>>> Poll.objects.get(pk=1)
+<Poll: What's up?>
+
