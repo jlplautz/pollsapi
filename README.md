@@ -1,7 +1,11 @@
 # pollsapi
 Project based on book Building Apis with Django and Django Rest Framework
 
-##2- Create virtual environment
+![Python package](https://github.com/jlplautz/pollsapi/workflows/Python%20package/badge.svg)
+[![Updates](https://pyup.io/repos/github/jlplautz/pollsapi/shield.svg)](https://pyup.io/repos/github/jlplautz/pollsapi/)
+[![Python 3](https://pyup.io/repos/github/jlplautz/pollsapi/python-3-shield.svg)](https://pyup.io/repos/github/jlplautz/pollsapi/)
+
+## 2- Create virtual environment
    - pollsapi $ pipenv install django
    - pollsapi $ pipenv install djangorestframework
    - pollsapi $ pipenv shell
@@ -29,14 +33,15 @@ Project based on book Building Apis with Django and Django Rest Framework
       - Pipfile.lock
    ```   
 
-##2.1- Create a project
+## 2.1- Create a project
    - (pollsapi) pollsapi $ django-admin startproject pollsapi
 
-##2.2- Create setup
+## 2.2- Create setup
    - pollsapi/settings.py file would already have the correct settings
    - (pollsapi) pollsapi $ python manage.py migrate
    
-##2.3- Create models
+## 2.3- Create models
+
    - (pollsapi) pollsapi $ python manage.py startapp polls
    ```
    (pollsapi) pollsapi $ pwd
@@ -68,7 +73,8 @@ Project based on book Building Apis with Django and Django Rest Framework
        └── wsgi.py
    ```
 
-##2.4- Active models
+## 2.4- Active models
+
    - To create the database tables to our models,‘rest_framework’ and ‘polls’ app needs to be added 
      to the “INSTALLED_APPS” in the ‘django_pollsapi/settings’ file.
    ```
