@@ -149,16 +149,95 @@ Project based on book Building Apis with Django and Django Rest Framework
    ```
    
 ## 4.4-  Using PollSerializer
->>> from polls.serializers import PollSerializer
->>> from polls.models import Poll
->>> poll_serializer = PollSerializer(data={"question": "Vinho ou Caipirinha", "created_by": 1})
->>> poll_serializer.is_valid()
-True
->>>> poll = poll_serializer.save()
->>> poll.pk
-2
->>> Poll.objects.all()
-<QuerySet [<Poll: What's up?>, <Poll: Vinho ou Caipirinha>]>
->>>> Poll.objects.get(pk=1)
-<Poll: What's up?>
+   - >>> from polls.serializers import PollSerializer
+   - >>> from polls.models import Poll
+   - >>> poll_serializer = PollSerializer(data={"question": "Vinho ou Caipirinha", "created_by": 1})
+   - >>> poll_serializer.is_valid()
+     - True
+   - >>>> poll = poll_serializer.save()
+   - >>> poll.pk
+     - 2
+   - >>> Poll.objects.all()
+     - <QuerySet [<Poll: What's up?>, <Poll: Vinho ou Caipirinha>]>
+   - >>>> Poll.objects.get(pk=1)
+     - <Poll: What's up?>
 
+
+## 5- Creating Views with APIView
+
+   - Create a file polls/apiviews.py
+   ```
+    from rest_framework.views import APIView
+    from rest_framework.response import Response
+    from django.shortcuts import get_object_or_404
+    from .models import Poll, Choice
+    from .serializers import PollSerializer
+
+    class PollList(APIView):
+       def get(self, request):
+           polls = Poll.objects.all()[:20]
+          data = PollSerializer(polls, many=True).data
+          return Response(data)
+
+    class PollDetail(APIView):
+       def get(self, request, pk):
+          poll = get_object_or_404(Poll, pk=pk)
+          data = PollSerializer(poll).data
+          return Response(data)
+
+   ```
+
+    -  change file urls.py
+    
+   ```
+    from django.urls import path
+    # from .views import polls_list, polls_detail
+    from .apiviews import PollList, PollDetail
+
+    urlpatterns = [
+    path("polls/", PollList.as_view(), name="polls_list"),
+    path("polls/<int:pk>/", PollDetail.as_view(), name="polls_detail")
+    ]
+   ```
+    
+   - to acess -> http://localhost:8000/polls/
+
+![](pollsapi/polls/static/polls/images/drf.png)
+
+![](pollsapi/polls/static/polls/images/drf_options.png)
+
+## 5.2- Using DRF generic views
+   - change apiviews.py to the below code, and leave urls.py as is.
+   ```
+    from rest_framework import generics
+    from .models import Poll, Choice
+    from .serializers import PollSerializer, ChoiceSerializer,VoteSerializer
+
+    class PollList(generics.ListCreateAPIView):
+        queryset = Poll.objects.all()
+        serializer_class = PollSerializer
+
+    class PollDetail(generics.RetrieveDestroyAPIView):
+        queryset = Poll.objects.all()
+        serializer_class = PollSerializer
+   ```
+
+![](pollsapi/polls/static/polls/images/drf_genericview1.png)
+
+
+## 5.3- More generic views
+   - insert apiviews.py to the below code, and insert into urls.py as is.
+   ```
+    class ChoiceList(generics.ListCreateAPIView):
+        queryset = Choice.objects.all()
+        serializer_class = ChoiceSerializer
+
+    class CreateVote(generics.CreateAPIView):
+        serializer_class = VoteSerializer
+   ```
+   - and insert into urls.py as is.
+   ```
+    from .apiviews import PollList, PollDetail, ChoiceList, CreateVote
+       path("choices/", ChoiceList.as_view(), name="choice_list"),
+       path("vote/", CreateVote.as_view(), name="create_vote"),
+   ```

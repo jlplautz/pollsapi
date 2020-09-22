@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from . models import Poll
 
 
-def polls_list(requst):
+def polls_list(request):
     MAX_OBJECTS = 20
     polls = Poll.objects.all()[:MAX_OBJECTS]
     data = {"results": list(polls.values("questions", "created_by__username"), "pub_date")}
@@ -19,3 +19,5 @@ def polls_detail(request, pk):
         "pub_date": poll.pub_date
     }}
     return JsonResponse(data)
+
+
