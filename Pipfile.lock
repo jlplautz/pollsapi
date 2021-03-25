@@ -34,11 +34,10 @@
         },
         "djangorestframework": {
             "hashes": [
-                "sha256:6dd02d5a4bd2516fb93f80360673bf540c3b6641fec8766b1da2870a5aa00b32",
-                "sha256:8b1ac62c581dbc5799b03e535854b92fc4053ecfe74bad3f9c05782063d4196b"
+                "sha256:2fbbd5c28a1aaa1ad0b721b29e916797fc9aba9f9b3e7619da11c674880fc7aa",
+                "sha256:ef043474687307d4123dc47fecd346594bb98e95b030225ee64bc417578403a7"
             ],
-            "index": "pypi",
-            "version": "==3.11.1"
+            "version": "==3.12.3"
         },
         "pytz": {
             "hashes": [
